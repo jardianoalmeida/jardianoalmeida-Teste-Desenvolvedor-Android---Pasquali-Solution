@@ -68,11 +68,13 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnected()){
             Player player = new HTTPService().execute().get();
-            Picasso.with(context).load(player.getImg()).transform(new CircleTransform()).fit().into(this.imgPerson);
+            Picasso.with(context).load(player.getImg()).transform(new CircleTransform()).into(this.imgPerson);
 
             Double percentual = Double.parseDouble(player.getPercentual());
             String resultado = String.format("%.3f", percentual);
 
+            this.numberProgressBar1.setMax(Integer.parseInt(player.getBarra().getCopaMundoDisputada().getMax()));
+            this.numberProgressBar2.setMax(Integer.parseInt(player.getBarra().getCopaMundoVencida().getMax()));
             this.numberProgressBar1.setProgress(Integer.parseInt(player.getBarra().getCopaMundoDisputada().getPla()));
             this.numberProgressBar2.setProgress(Integer.parseInt(player.getBarra().getCopaMundoVencida().getPla()));
             this.name.setText(player.getName());
