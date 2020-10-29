@@ -2,13 +2,10 @@ package com.teste;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,16 +13,10 @@ import android.widget.Toast;
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.squareup.picasso.Picasso;
 import com.teste.config.CircleTransform;
-import com.teste.config.RetrofitConfig;
-import com.teste.config.RoundedTransformation;
 import com.teste.model.Player;
 import com.teste.service.HTTPService;
 
 import java.util.concurrent.ExecutionException;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private TextView name;
@@ -68,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnected()){
             Player player = new HTTPService().execute().get();
-            Picasso.with(context).load(player.getImg()).transform(new CircleTransform()).into(this.imgPerson);
+            Picasso.with(context).load(player.getImg()).transform(new CircleTransform()).fit().into(this.imgPerson);
 
             Double percentual = Double.parseDouble(player.getPercentual());
             String resultado = String.format("%.3f", percentual);
